@@ -8,9 +8,9 @@
 	var b = false;
 	var f = 1.1;
 	var o = {
-	valueOf: function() {
-	return -1;
-	}
+	    valueOf: function() {
+	        return -1;
+	    }
 	};
 	s1++; // 值变成数值 3
 	s2++; // 值变成 NaN
