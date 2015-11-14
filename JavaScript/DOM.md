@@ -608,3 +608,16 @@ CDATASection 类型继承自 Text 类型，因此拥有除 splitText()之外的�
 	    div = document.createElement("div");
 	    document.body.appendChild(div);
 	}
+
+###3. 小结
+-  最基本的节点类型是 Node，用于抽象地表示文档中一个独立的部分；所有其他类型都继承自Node。
+-  Document 类型表示整个文档，是一组分层节点的根节点。在 JavaScript 中， document 对象是
+Document 的一个实例。使用 document 对象，有很多种方式可以查询和取得节点。
+-  Element 节点表示文档中的所有 HTML 或 XML 元素，可以用来操作这些元素的内容和特性。
+-  另外还有一些节点类型，分别表示文本内容、注释、文档类型、 CDATA 区域和文档片段。
+- 访问 DOM 的操作在多数情况下都很直观，不过在处理<script>和<style>元素时还是存在一些
+复杂性。由于这两个元素分别包含脚本和样式信息，因此浏览器通常会将它们与其他元素区别对待。这
+些区别导致了在针对这些元素使用 innerHTML 时，以及在创建新元素时的一些问题。
+- 理解 DOM 的关键，就是理解 DOM 对性能的影响。 DOM 操作往往是 JavaScript 程序中开销最大的
+部分，而因访问 NodeList 导致的问题为最多。 NodeList 对象都是“动态的”，这就意味着每次访问
+NodeList 对象，都会运行一次查询。有鉴于此，最好的办法就是尽量减少 DOM 操作。
