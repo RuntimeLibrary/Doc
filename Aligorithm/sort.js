@@ -76,13 +76,86 @@ var partition = function(arr, start, end) {
 };
 
 //5. 希尔排序
+var shellSort = function(arr) {
+    var len = arr.length;
+    for (var gap = Math.floor(len / 2); gap > 0; gap = Math.floor(gap / 2)) {
+        for (var i = gap; i < len; i++) {
+            var temp = arr[i],
+                j = i - gap;
+            while (temp < arr[j] && j > -1) {
+                arr[j + gap] = arr[j];
+                j -= gap;
+            }
+            arr[j + gap] = temp;
+        }
+    }
+    return arr;
+};
 
 //6. 归并排序
+function mergeSort(source, dest, s, t) {
+    var m, dest2 = new Array();
+    if (s == t) {
+        dest[s] = source[s];
+    } else {
+        m = Math.floor((s + t) / 2);
+        mergeSort(source, dest2, s, m);
+        mergeSort(source, dest2, m + 1, t);
+        merge(dest2, dest, s, m, t);
+    }
+}
+
+function merge(source, dest, s, m, n) {
+    for (var i = m + 1, k = s; i <= n && s <= m; k++) {
+        if (source[s] < source[i]) {
+            dest[k] = source[s++];
+        } else {
+            dest[k] = source[i++];
+        }
+    }
+
+    if (s <= m) {
+        for (var l = 0; l <= m - s; l++) {
+            dest[k + l] = source[s + l];
+        }
+    }
+    if (i<= n) {
+        for (var l = 0; l <= n - i; l++) {
+            dest[k + l] = source[i + l];
+        }
+
+    }
+}
 
 //7. 堆排序
+var heapSort = function(arr) {
+    var temp, len = arr.length;
+    for (var i = Math.floor(len / 2); i >= 0; i--) {
+        heapAdjust(arr, i, len - 1);
+    }
+    for (var i = len - 1; i >= 0; i--) {
+        arraySwap(arr, 0, i);
+        heapAdjust(arr, 0, i - 1);
+    }
+    return arr;
+};
 
-//8. 基数排序
+var heapAdjust = function(arr, start, max) {
+    var temp = arr[start];
+    for (var i = 2 * start; i < max; i *= 2) {
+        if (i < max && arr[i] < arr[i + 1]) {
+            ++i;
+        }
+        if (temp >= arr[i]) {
+            break;
+        }
+        arr[start] = arr[i];
+        start = i;
+    }
+    arr[start] = temp;
+};
 
+//数组交换
 var arraySwap = function(arr, index1, index2) {
     var temp = arr[index1];
     arr[index1] = arr[index2];
@@ -93,4 +166,9 @@ var arr = [2, 7, 4, 2, 9, 6, 0, 1];
 //console.log(bubbleSort(arr));
 //console.log(selectionSort(arr));
 //console.log(insertionSort(arr));
-console.log(quickSort(arr, 0, arr.length - 1));
+//console.log(quickSort(arr, 0, arr.length - 1));
+//console.log(shellSort(arr));
+//console.log(heapSort(arr));
+var rsArr = [];
+mergeSort(arr, rsArr, 0, arr.length - 1);
+console.log(rsArr);
